@@ -1,4 +1,4 @@
-// Array containing object
+// Array containing objects
 let myData = [
     {
         first_name: "Paul", 
