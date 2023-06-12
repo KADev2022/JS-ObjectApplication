@@ -46,12 +46,44 @@ let myData = [
     }
 ];
 
-// Creating HTML elements for objects
 let listHolder = document.querySelector("#listHolder");
+let firstName = document.querySelector("#firstName");
+let lastName = document.querySelector("#lastName");
+let age = document.querySelector("#age");
+let btnSubmit = document.querySelector("#btnSubmit");
+
+// Submit button functionality
+btnSubmit.addEventListener("click", function () {
+    // Alert message will show if the firstname, lastname and age are empty
+    if (firstName.value.trim() == "" || lastName.value.trim() == "" || age.value.trim() == "") {
+        alert("Fill out the form completely");
+    } else {
+        // Otherwise new data is processed
+        let copyData = [...myData];
+        let newEntry = {
+            first_name: firstName.value.trim(),
+            last_name: lastName.value.trim(),
+            age: age.value.trim(),
+            fullname: function () {
+                return this.first_name + " " + this.last_name;
+            }
+        };
+
+        copyData.push(newEntry); // Adds a new entry to the copyData array
+        myData.splice(0, myData.length, ...copyData); // Overwrites the original array
+        console.log(myData);
+        listHolder.innerHTML = "";
+
+        renderRecord(); // Renders the data on the browser
+        firstName.value = "";
+        lastName.value = "";
+        age.value = "";
+    }
+});
 
 // Function to render data dynamically
 function renderRecord() {
-    // For each loop to loop through the data as an item
+    // For each loop to create elements as an object
     myData.forEach((item, index) => {
         // Creates a tr element
         let tr = document.createElement("tr");
